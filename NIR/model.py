@@ -3,8 +3,7 @@ import numpy as np
 import pandas as pd
 
 class LanguageNgramModel:
-    """ Модель запоминает и предсказывает, за какими буквами следуют какие. 
-    Параметры конструктора:
+    """
     order - порядок (сколько предыдущих букв помнит модель), или n-1
     smoothing - величина, добавляемая к каждому счётчику букв для устойчивости
     recursive - вес, с которым используется модель на один порядок меньше
@@ -19,8 +18,7 @@ class LanguageNgramModel:
         self.recursive = recursive
     
     def fit(self, corpus):
-        """ Оценка числа всех буквосочетаний по тексту 
-        Параметры:
+        """
         corpus - текстовая строка. 
         """
         self.counter_ = defaultdict(lambda: Counter())
@@ -35,8 +33,7 @@ class LanguageNgramModel:
             self.child_.fit(corpus)
             
     def get_counts(self, context):
-        """ Оценка частоты всех символов, которые могут следовать за контекстом 
-        Параметры:
+        """
         context - текстовая строка (учиываются только последние self.order символов)
         Возвращает: 
         freq - вектор условных частот букв, в форме pandas.Series
@@ -55,17 +52,16 @@ class LanguageNgramModel:
         return freq
     
     def predict_proba(self, context):
-        """ Сглаженная оценка вероятности всех символов, которые могут следовать за контекстом 
-        Параметры:
+        """
         context - текстовая строка (учиываются только последние self.order символов)
         Возвращает: 
-        freq - вектор условных вероятностей букв, в форме pandas.Series  """
+        freq - вектор условных вероятностей букв, в форме pandas.Series  
+        """
         counts = self.get_counts(context)
         return counts / counts.sum()
     
     def single_log_proba(self, context, continuation):
-        """ Оценка логарифма вероятности конкретного продолжения данной фразы. 
-        Параметры:
+        """
         context - текстовая строка, известное начало фразы
         continuation - текстовая строка, гипотетическое продолжение фразы
         """
@@ -76,8 +72,7 @@ class LanguageNgramModel:
         return result
     
     def single_proba(self, context, continuation):
-        """ Оценка вероятности конкретного продолжения данной фразы. 
-        Параметры:
+        """
         context - текстовая строка, известное начало фразы
         continuation - текстовая строка, гипотетическое продолжение фразы
         """
@@ -90,8 +85,7 @@ class LanguageNgramModel:
 
 
 class MissingLetterModel:
-    """ Модель запоминает и предсказывает, какие буквы обычно исключаются из сокращений 
-    Параметры:
+    """
     order - порядок, или n+1
     smoothing_missed - число, прибавляемое к счётчику пропущенных символов
     smoothing_total - число, прибавляемое к счётчику всех символов
@@ -102,8 +96,7 @@ class MissingLetterModel:
         self.smoothing_total = smoothing_total
     
     def fit(self, sentence_pairs):
-        """ Оценка частоты сокращения символов на основе обучающих примеров 
-        Параметры:
+        """
         sentence_pairs - список пар (исходная фраза, сокращение)
         В сокращении все пропущенные символы заменены на дефисы. 
         """
@@ -117,7 +110,6 @@ class MissingLetterModel:
                 self.total_counter_[context][original_letter] += 1 
     
     def predict_proba(self, context, last_letter):
-        """ Оценка вероятности того, что символ last_letter пропущен после символов context"""
         if self.order:
             local = context[-self.order:]
         else:
@@ -127,7 +119,8 @@ class MissingLetterModel:
         return missed_freq / total_freq
     
     def single_log_proba(self, context, continuation, actual=None):
-        """ Оценка логарифма вероятности того, после фразы context фраза continuation трансформируется в actual
+        """ 
+        Оценка логарифма вероятности того, после фразы context фраза continuation трансформируется в actual
         Если actual не указана, предполагается, что continuation не изменяется. 
         """
         if not actual:
@@ -142,7 +135,8 @@ class MissingLetterModel:
         return result
     
     def single_proba(self, context, continuation, actual=None):
-        """ Оценка вероятности того, после фразы context фраза continuation трансформируется в actual
+        """ 
+        Оценка вероятности того, после фразы context фраза continuation трансформируется в actual
         Если actual не указана, предполагается, что continuation не изменяется. 
         """
         return np.exp(self.single_log_proba(context, continuation, actual))
@@ -160,8 +154,7 @@ def generate_options(prefix_proba, prefix, suffix, lang_model, missed_model, opt
     missed_model - модель вероятности сокращений
     optimism - коэффициент, с которым учитывается не объясненный конец слова
     cache - хранилище оценок качества концов слова
-    Возвращает: список опций в форме (оценка качества, расшифрованная часть, 
-        не расшифрованная часть, новая буква, оценка качества не расшифрованной части)
+    Возвращает: список опций в форме (оценка качества, расшифрованная часть, не расшифрованная часть, новая буква, оценка качества не расшифрованной части)
     """
     options = []
     for letter in lang_model.vocabulary_ + ['']:
@@ -188,8 +181,7 @@ def generate_options(prefix_proba, prefix, suffix, lang_model, missed_model, opt
 
 
 def noisy_channel(word, lang_model, missed_model, freedom=3.0, max_attempts=10000, optimism=0.9, verbose=False):
-    """ Подбор фраз, аббревиатурой которых может быть word 
-    Параметры:
+    """
     word - аббревиатура
     lang_model - модель языка
     missed_model - модель вероятности сокращений
@@ -197,9 +189,8 @@ def noisy_channel(word, lang_model, missed_model, freedom=3.0, max_attempts=1000
     max_attempts - число итераций
     optimism - коэффициент, с которым учитывается не объясненный конец слова
     verbose - печатать ли наилучших текущих кандидатов в ходе исполнения функции
-    Возвращает: словарик с ключами - расшифровками 
-        и значениями - минус логарифмом правдоподобия расшифровок. 
-        Чем меньше значение, тем правдоподобнее расшифровка. 
+    Возвращает: словарик с ключами - расшифровками и значениями - минус логарифмом правдоподобия расшифровок. 
+    Чем меньше значение, тем правдоподобнее расшифровка. 
     """
     query = word + ' '
     prefix = ' '
