@@ -6,7 +6,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
            widget.cpp \
-           theme.cpp
+           theme.cpp \
+           thememanager.cpp \
+           newthemedialog.cpp
 
 HEADERS += widget.h \
-           theme.h
+           theme.h \
+           thememanager.h \
+           newthemedialog.h
