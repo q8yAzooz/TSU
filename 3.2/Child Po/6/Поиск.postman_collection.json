@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "68ffc595-8f81-4060-8534-81032afa0b7e",
+		"name": "Поиск",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43195039"
+	},
+	"item": [
+		{
+			"name": "Поиск проектов",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Статус код 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Результат содержит массив hits\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.hits).to.be.an(\"array\");\r",
+							"});\r",
+							"pm.test(\"Проверка наличия хотя бы одного результата\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.hits.length).to.be.above(0);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/search?query=Create",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "Create",
+							"description": "Поиск Minecraft модов"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Проверка тегов",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Статус код 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Результат - массив категорий\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an(\"array\");\r",
+							"});\r",
+							"pm.test(\"Проверка наличия хотя бы одной категории\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.be.above(0);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/tag/category",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tag",
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получение информации о проекте",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Статус код 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Проверка соответствия project_id в ответе\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var expectedProjectTitle = pm.iterationData.get(\"project_title\");\r",
+							"    pm.expect(jsonData.title).to.equal(expectedProjectTitle);\r",
+							"});\r",
+							"console.log(\"Полученное title: \" + pm.response.json().title);\r",
+							"\r",
+							"pm.test(\"Проверка наличия поля title\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.title).to.exist;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"protocolVersion": "http2"
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/project/{{project_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"project",
+						"{{project_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

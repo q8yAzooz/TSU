@@ -1,0 +1,9 @@
+# ninja log v6
+11	867	7671913772704939	lab3_autogen/timestamp	736fb79c62734df9
+11	867	7671913772704939	lab3_autogen/mocs_compilation.cpp	736fb79c62734df9
+11	867	7671913772704939	C:/Users/VICTUS/Documents/GitHub/TSU/3.2/OOAP/lab3/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/lab3_autogen/timestamp	736fb79c62734df9
+11	867	7671913772704939	C:/Users/VICTUS/Documents/GitHub/TSU/3.2/OOAP/lab3/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/lab3_autogen/mocs_compilation.cpp	736fb79c62734df9
+877	3288	7671913773785186	CMakeFiles/lab3.dir/lab3_autogen/mocs_compilation.cpp.obj	6965e746c1423944
+881	3357	7671913773825284	CMakeFiles/lab3.dir/main.cpp.obj	6fa6f1d1b784c487
+885	3940	7671913773855273	CMakeFiles/lab3.dir/mainwindow.cpp.obj	6595b259c46d5f8e
+3941	4255	7671913804424394	lab3.exe	35f8bb0037a5470c

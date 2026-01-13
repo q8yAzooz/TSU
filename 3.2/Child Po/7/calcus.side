@@ -1,0 +1,240 @@
+{
+  "id": "49812f6e-7116-4375-95da-b77268a50ad3",
+  "version": "2.0",
+  "name": "testing lab7",
+  "url": "https://calcus.ru/nalogovyj-vychet-pri-pokupke-kvartiry",
+  "tests": [{
+    "id": "e4ec8cd5-6776-4504-901f-d29f12b8cf64",
+    "name": "Проверка гажатия на иконку профиля",
+    "commands": [{
+      "id": "7654652e-4e98-482d-bc97-a0e2d98607dc",
+      "comment": "",
+      "command": "open",
+      "target": "https://calcus.ru/nalogovyj-vychet-pri-pokupke-kvartiry",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ab2256ea-73a9-4028-a275-76a4f0929c6d",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "718x450",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "52f10ed0-434c-481a-b68f-ac42b5095324",
+      "comment": "",
+      "command": "click",
+      "target": "css=.user-icon > .icon",
+      "targets": [
+        ["css=.user-icon > .icon", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "acaebb30-8606-4209-9a2d-2c5783b5c54b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.align-content-center:nth-child(1) > span",
+      "targets": [
+        ["css=.align-content-center:nth-child(1) > span", "css:finder"],
+        ["xpath=//div[@id='userOffcanvas']/div[2]/div[2]/a/span", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Войти')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9a2aba1f-0f03-4088-b7e8-2cf0e815e2b7",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.d-flex:nth-child(4) > .button",
+      "targets": [
+        ["css=.d-flex:nth-child(4) > .button", "css:finder"],
+        ["xpath=(//button[@type='submit'])[2]", "xpath:attributes"],
+        ["xpath=//div[@id='loginModal']/div/div/div[2]/div/form/div[4]/button", "xpath:idRelative"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Войти')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "d74e6b21-7aea-4245-a3c0-ea320cae264d",
+    "name": "Проверка наличия заголовка страницы",
+    "commands": [{
+      "id": "2dfcaf35-fc26-4370-a7ba-727b8281fc47",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "32a2c37b-007e-4ed4-a915-870d3b67f29c",
+      "comment": "",
+      "command": "assertText",
+      "target": "xpath=//h1",
+      "targets": [],
+      "value": "Калькулятор имущественного вычета"
+    }]
+  }, {
+    "id": "34743625-e338-484c-a228-de8da61e59b9",
+    "name": "Проверка наличия кнопки \"Рассчитать\"",
+    "commands": [{
+      "id": "1b6ae1d7-c2f2-4ed9-8d21-1f8dcb94fb82",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5de300aa-2107-4efd-881b-d4a3e2539c62",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=.calc-submit",
+      "targets": [
+        ["css=.calc-submit", "css:finder"],
+        ["xpath=//input[@value='Рассчитать']", "xpath:attributes"],
+        ["xpath=//div[7]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "a3e28089-f2c3-4874-ac64-4bb65fe6e3b5",
+    "name": "Проверка оформления выпадающего списка \"Год покупки\"",
+    "commands": [{
+      "id": "4bcbe6b6-bd82-4117-813f-17529b48935e",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a49b9c41-84f4-4c41-ab85-1c6691c5fe8e",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//select[@name='year']/option",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "506520cd-174b-4cd5-a235-108ca3b228c9",
+    "name": "Проверка валидации данных (пустое поле)",
+    "commands": [{
+      "id": "bee09752-08c7-434e-a792-337f1dd39e5b",
+      "comment": "",
+      "command": "open",
+      "target": "https://calcus.ru/nalogovyj-vychet-pri-pokupke-kvartiry",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0c6fd5dc-e419-4d03-9a77-093afece2df8",
+      "comment": "",
+      "command": "click",
+      "target": "css=.calc-submit",
+      "targets": [
+        ["css=.calc-submit", "css:finder"],
+        ["xpath=//input[@value='Рассчитать']", "xpath:attributes"],
+        ["xpath=//div[7]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "11661575-7f93-4233-9431-9f0fb319de27",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//div[@id='price-error']",
+      "targets": [
+        ["id=price-error", "id"],
+        ["css=#price-error", "css:finder"],
+        ["xpath=//div[@id='price-error']", "xpath:attributes"],
+        ["xpath=//div[2]/div[2]/div/div", "xpath:position"]
+      ],
+      "value": "Fill out this field"
+    }]
+  }, {
+    "id": "c5d759d4-fbeb-4254-932f-8ba30952035d",
+    "name": "Проверка тестового сценария (успешный расчет)",
+    "commands": [{
+      "id": "0403f841-fb8d-4cb9-9734-d82e59f0f10e",
+      "comment": "",
+      "command": "open",
+      "target": "https://calcus.ru/nalogovyj-vychet-pri-pokupke-kvartiry",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d4034df3-bb61-47c3-8ac1-b035c397cc8b",
+      "comment": "",
+      "command": "type",
+      "target": "name=price",
+      "targets": [
+        ["name=price", "name"],
+        ["css=.autofocus", "css:finder"],
+        ["xpath=//input[@name='price']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "5 000 000"
+    }, {
+      "id": "06ee56b0-9fe4-47bf-a41e-25b6a693aa45",
+      "comment": "",
+      "command": "click",
+      "target": "css=.calc-submit",
+      "targets": [
+        ["css=.calc-submit", "css:finder"],
+        ["xpath=//input[@value='Рассчитать']", "xpath:attributes"],
+        ["xpath=//div[7]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9be14308-915d-4cf9-b3c5-e8d271f02d62",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.result-placeholder-deduction",
+      "targets": [
+        ["css=.result-placeholder-deduction", "css:finder"],
+        ["xpath=//div[11]/div[2]/div", "xpath:position"]
+      ],
+      "value": "2 000 000,00"
+    }]
+  }, {
+    "id": "bae91ddc-3727-4d1e-bd35-c85629c7c361",
+    "name": "Проверка перехода на главную страницу через логотип",
+    "commands": [{
+      "id": "409efcaf-ecff-434f-9303-0b16225d1b7a",
+      "comment": "",
+      "command": "open",
+      "target": "https://calcus.ru/nalogovyj-vychet-pri-pokupke-kvartiry",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "202c035c-9025-4cd3-a9f6-c710c155cc84",
+      "comment": "",
+      "command": "click",
+      "target": "css=.d-lg-none > img",
+      "targets": [
+        ["css=.d-lg-none > img", "css:finder"],
+        ["xpath=//a[2]/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f8083ccc-f354-4460-be5e-393500fa2958",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return window.location.href",
+      "targets": [],
+      "value": "current_url"
+    }, {
+      "id": "491efe1f-dca7-4805-a66d-9179fd870b10",
+      "comment": "",
+      "command": "assert",
+      "target": "current_url",
+      "targets": [],
+      "value": "https://calcus.ru/"
+    }]
+  }],
+  "suites": [{
+    "id": "b59e0b9d-5f1d-4292-82d8-a2ae6fb074b8",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["e4ec8cd5-6776-4504-901f-d29f12b8cf64"]
+  }],
+  "urls": ["https://calcus.ru/nalogovyj-vychet-pri-pokupke-kvartiry"],
+  "plugins": []
+}

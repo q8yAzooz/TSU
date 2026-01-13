@@ -1,0 +1,32 @@
+int n;
+input n;
+array int arr[100];
+int i;
+i = 0;
+while(i < n)
+{
+    input arr[i];
+    i = i + 1;
+};
+i = 0;
+int temp;
+while(i < n - 1)
+{ 
+    if(arr[i] > arr[i+1])
+    {
+        temp = arr[i];
+        arr[i] = arr[i+1];
+        arr[i+1] = temp;
+        i = 0; 
+    }
+    else
+    {
+        i = i + 1;
+    };
+};
+i = 0;
+while(i < n)
+{
+    output arr[i];
+    i = i + 1;
+};

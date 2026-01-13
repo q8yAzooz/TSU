@@ -1,0 +1,296 @@
+{
+  "id": "33ecd3a5-148a-42a2-95d1-1725bb6b0d66",
+  "version": "2.0",
+  "name": "modrinth",
+  "url": "https://modrinth.com/",
+  "tests": [{
+    "id": "6071f78e-0544-46a9-9f12-66b30065dda6",
+    "name": "Проверка наличия заголовка страницы",
+    "commands": [{
+      "id": "11b5f283-177f-4593-a17c-eb52cfea2e6d",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "58964b16-b647-425b-9a79-97c7a1f73ae4",
+      "comment": "",
+      "command": "assertText",
+      "target": "xpath=//div[@id='__nuxt']/div[4]/header/div[2]/div/div/button",
+      "targets": [],
+      "value": "Discover content"
+    }]
+  }, {
+    "id": "afbe0b5e-02de-4f05-98ac-0bc462e70a4d",
+    "name": "Проверка наличия поля поиска",
+    "commands": [{
+      "id": "b13a0bb4-fd87-42da-bc56-49945b492232",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c8176d0c-1a4e-4941-b8b0-edff74753613",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//input[@type='search']",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "13c51460-0d4e-4538-9342-6ee3727b69a5",
+    "name": "Проверка оформления ссылки \"Discover mods\"",
+    "commands": [{
+      "id": "07b8e2d1-4579-45fd-9cf2-8e69bc69c4b8",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3a607aaa-d03b-4150-954d-f08cadd960c7",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=Discover mods",
+      "targets": [
+        ["linkText=Discover mods", "linkText"],
+        ["css=.button-group > .btn-wrapper:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Discover mods')]", "xpath:link"],
+        ["xpath=//div[@id='__nuxt']/div[4]/main/div[6]/div/div/div/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/mods')])[2]", "xpath:href"],
+        ["xpath=//div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Discover mods')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "3b3b1779-e19b-47f2-8adf-321bdc85013b",
+    "name": "Проверка перехода по ссылке \"Mods\"",
+    "commands": [{
+      "id": "178c4aaf-c9e0-4271-bd81-0d54a2df84e9",
+      "comment": "",
+      "command": "open",
+      "target": "https://modrinth.com/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ad3a9aa6-61bd-4fc4-bf52-e5967f076090",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Discover mods",
+      "targets": [
+        ["linkText=Discover mods", "linkText"],
+        ["css=.button-group > .btn-wrapper:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Discover mods')]", "xpath:link"],
+        ["xpath=//div[@id='__nuxt']/div[4]/main/div[6]/div/div/div/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/mods')])[2]", "xpath:href"],
+        ["xpath=//div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Discover mods')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2cf28fe8-4daf-4a09-9d53-8cd4b57abe39",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return window.location.href",
+      "targets": [],
+      "value": "currentUrl"
+    }, {
+      "id": "b933b7d3-23a9-48c2-98bd-a123bc2d6c0a",
+      "comment": "",
+      "command": "assert",
+      "target": "currentUrl",
+      "targets": [],
+      "value": "https://modrinth.com/mods"
+    }]
+  }, {
+    "id": "34672766-912f-462e-a29e-73be9ec844ca",
+    "name": "Проверка тестового сценария (поиск мода)",
+    "commands": [{
+      "id": "32e2b8c5-6962-4137-97fa-798bb676c773",
+      "comment": "",
+      "command": "open",
+      "target": "https://modrinth.com/mods",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "dcec5c91-3acc-4abb-8e82-7247154b1ec9",
+      "comment": "",
+      "command": "type",
+      "target": "css=.h-12",
+      "targets": [
+        ["css=.h-12", "css:finder"],
+        ["xpath=(//input[@value=''])[2]", "xpath:attributes"],
+        ["xpath=//div[@id='__nuxt']/div[4]/main/div[6]/section[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//section[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "Sodium"
+    }, {
+      "id": "b13ef1af-da80-449b-b463-7f325c1a2881",
+      "comment": "",
+      "command": "click",
+      "target": "css=.project-card:nth-child(1) .name",
+      "targets": [
+        ["css=.project-card:nth-child(1) .name", "css:finder"],
+        ["xpath=//div[@id='search-results']/article/div/a/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Sodium')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8fcdb4f2-e986-4f45-bf49-b061389c9802",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.font-extrabold:nth-child(1)",
+      "targets": [
+        ["css=.font-extrabold:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='__nuxt']/div[4]/main/div[6]/div[6]/div/div/div/div/div/h1", "xpath:idRelative"],
+        ["xpath=//h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'Sodium')]", "xpath:innerText"]
+      ],
+      "value": "Sodium"
+    }]
+  }, {
+    "id": "d3cad955-f1c0-4edc-844b-454ad93a704c",
+    "name": "Проверка перехода на главную через логотип",
+    "commands": [{
+      "id": "fe8d2974-c7a3-46d2-b99e-fb167cffb22c",
+      "comment": "",
+      "command": "open",
+      "target": "/mods",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "37f2b8eb-69c8-4c94-8552-537d6cdc7a35",
+      "comment": "",
+      "command": "click",
+      "target": "css=.h-7",
+      "targets": [
+        ["css=.h-7", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "15f1861f-88d9-4a0d-9522-ec08fbfccee2",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=.landing-hero > .modrinth-icon",
+      "targets": [
+        ["css=.landing-hero > .modrinth-icon", "css:finder"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "6b444cff-8053-44dc-86e9-deac57490a2b",
+    "name": "Проверка возможности скачать мод",
+    "commands": [{
+      "id": "61438c8a-a5e8-4038-8b86-e4a3b2fe9f79",
+      "comment": "",
+      "command": "open",
+      "target": "https://modrinth.com/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8fe7400b-0b94-4501-b333-f83f2125bce6",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Discover mods",
+      "targets": [
+        ["linkText=Discover mods", "linkText"],
+        ["css=.button-group > .btn-wrapper:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Discover mods')]", "xpath:link"],
+        ["xpath=//div[@id='__nuxt']/div[4]/main/div[6]/div/div/div/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/mods')])[2]", "xpath:href"],
+        ["xpath=//div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Discover mods')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5fac20c8-5791-4141-858a-c3e2c09630e7",
+      "comment": "",
+      "command": "click",
+      "target": "css=.project-card:nth-child(2) .name",
+      "targets": [
+        ["css=.project-card:nth-child(2) .name", "css:finder"],
+        ["xpath=//div[@id='search-results']/article[2]/div/a/h2", "xpath:idRelative"],
+        ["xpath=//article[2]/div/a/h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Sodium')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2c42f3d7-5107-4186-83be-bc634c6677f1",
+      "comment": "",
+      "command": "click",
+      "target": "css=.hidden > .btn-wrapper > button",
+      "targets": [
+        ["css=.hidden > .btn-wrapper > button", "css:finder"],
+        ["xpath=//div[@id='__nuxt']/div[4]/main/div[6]/div[6]/div/div/div[2]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div[6]/div/div/div[2]/div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Download')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "aa546dec-502c-4ef9-a6db-aacc4fd14761",
+      "comment": "",
+      "command": "click",
+      "target": "css=div:nth-child(1) > .btn-wrapper > .\\!w-full",
+      "targets": [
+        ["css=div:nth-child(1) > .btn-wrapper > .\\!w-full", "css:finder"],
+        ["xpath=//div[@id='__nuxt']/div[4]/main/div[6]/div[4]/div[3]/div/div[2]/div/div[2]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/div[2]/div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Select game version')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "30dfdb0e-1a3e-4c8c-a834-da1adb1b87e1",
+      "comment": "",
+      "command": "click",
+      "target": "css=.bottom-fade .btn-wrapper:nth-child(1) > button",
+      "targets": [
+        ["css=.bottom-fade .btn-wrapper:nth-child(1) > button", "css:finder"],
+        ["xpath=//div[@id='__nuxt']/div[4]/main/div[6]/div[4]/div[3]/div/div[2]/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/button", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'1.21.5')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "21c82583-db5b-4666-9a6b-6d60614b26fd",
+      "comment": "",
+      "command": "click",
+      "target": "css=.scrollable-pane-wrapper:nth-child(1) .btn-wrapper:nth-child(2) > button",
+      "targets": [
+        ["css=.scrollable-pane-wrapper:nth-child(1) .btn-wrapper:nth-child(2) > button", "css:finder"],
+        ["xpath=//div[@id='__nuxt']/div[4]/main/div[6]/div[4]/div[3]/div/div[2]/div/div[2]/div[2]/div[2]/div/div/div/div/div/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div/div/div/div/div/div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'NeoForge')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "47a441d9-f0ec-4738-8a1e-513d6b22d695",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=Download",
+      "targets": [
+        ["linkText=Download", "linkText"],
+        ["css=.btn-wrapper:nth-child(3) > .min-w-0", "css:finder"],
+        ["xpath=//a[contains(text(),'Download')]", "xpath:link"],
+        ["xpath=//div[@id='__nuxt']/div[4]/main/div[6]/div[4]/div[3]/div/div[2]/div/div[3]/div/div/div/div/div[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'https://cdn.modrinth.com/data/AANobbMI/versions/FbKAFCUM/sodium-neoforge-0.6.12%2Bmc1.21.5.jar')]", "xpath:href"],
+        ["xpath=//div/div/div[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Download')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "33bd0d4b-d84b-4f8e-a5c7-ebb8583fd1ff",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["https://modrinth.com/"],
+  "plugins": []
+}

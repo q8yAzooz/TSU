@@ -1,0 +1,4 @@
+int x;
+input x;
+array int A[x];
+output x;

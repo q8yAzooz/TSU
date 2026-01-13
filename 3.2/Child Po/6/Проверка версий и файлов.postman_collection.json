@@ -1,0 +1,134 @@
+{
+	"info": {
+		"_postman_id": "be46ade2-fd53-494a-93b5-ff38ca081765",
+		"name": "Проверка версий и файлов",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43195039"
+	},
+	"item": [
+		{
+			"name": "Получение списка версий проекта",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Статус код 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Результат - массив версий\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an(\"array\");\r",
+							"});\r",
+							"pm.test(\"Проверка наличия хотя бы одной версии\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.be.above(0);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/project/{{project_id}}/version",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"project",
+						"{{project_id}}",
+						"version"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получение конкретной версии",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Статус код 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Проверка типа версии\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.version_type).to.be.oneOf([\"release\", \"beta\", \"alpha\"]);\r",
+							"});\r",
+							"pm.test(\"Проверка даты публикации\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.date_published).to.exist;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/version/{{version_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"version",
+						"{{version_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получение версии по хешу",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Статус код 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Проверка наличия поля version_number\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.version_number).to.exist;\r",
+							"});\r",
+							"pm.test(\"Проверка наличия файлов\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.files).to.be.an(\"array\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/version_file/{{hash}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"version_file",
+						"{{hash}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

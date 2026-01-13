@@ -1,0 +1,9 @@
+# ninja log v6
+9	786	7671931853830307	lab3naked_autogen/timestamp	b3dc41f926074028
+9	786	7671931853830307	lab3naked_autogen/mocs_compilation.cpp	b3dc41f926074028
+9	786	7671931853830307	C:/Users/VICTUS/Documents/GitHub/TSU/3.2/OOAP/lab3naked/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/lab3naked_autogen/timestamp	b3dc41f926074028
+9	786	7671931853830307	C:/Users/VICTUS/Documents/GitHub/TSU/3.2/OOAP/lab3naked/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/lab3naked_autogen/mocs_compilation.cpp	b3dc41f926074028
+794	3488	7671931854750512	CMakeFiles/lab3naked.dir/lab3naked_autogen/mocs_compilation.cpp.obj	a29b08205d8a14fd
+798	3499	7671931854780520	CMakeFiles/lab3naked.dir/main.cpp.obj	af8ba0b5e7cf970d
+801	3994	7671931854820531	CMakeFiles/lab3naked.dir/mainwindow.cpp.obj	b0939053db2b4c12
+3995	4219	7671931886756668	lab3naked.exe	5fb67cd114dcbdc7

@@ -7,7 +7,7 @@ int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
     QWidget window;
-    window.setWindowTitle("Bridge Pattern Demo");
+    window.setWindowTitle("Bridg:)");
     QVBoxLayout* layout = new QVBoxLayout(&window);
 
     // Создаём менеджер тем
