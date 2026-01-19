@@ -18,15 +18,17 @@ console_archiver.py
 
 Примеры:
 
-  Архивация файла:
+  Архивация файла: (python console_archiver.py источник целевойФайл.расширение)
 
     python console_archiver.py input.txt output.bz2
 
-  Архивация директории:
+  Архивация директории: (python console_archiver.py папкаИсточник цель.tar.расширение)
 
     python console_archiver.py mydir archive.tar.zst
 
-  Распаковка:
+  Распаковка: (python console_archiver.py архив цель)
+
+    python console_archiver.py archive.tar.zst .
 
     python console_archiver.py archive.tar.bz2 .
 
