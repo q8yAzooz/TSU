@@ -39,3 +39,11 @@ console_archiver.py
   С прогресс-баром:
 
     python console_archiver.py input.txt output.bz2 --progress
+
+Примеры работы:
+
+![1768859464159](image/README/1768859464159.png)
+
+Файлы папки, где были выполнены все команды выше:
+
+![1768859584048](image/README/1768859584048.png)
