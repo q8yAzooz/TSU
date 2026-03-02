@@ -1,0 +1,6 @@
+Model,Accuracy,Precision (Class 1),Recall (Class 1),F1-Score (Class 1)
+Architecture_1_Simple,0.4483,0.5455,0.6667,0.6000
+Architecture_2_Feature_Rich,0.6207,0.6207,1.0000,0.7660
+Architecture_3_Residual,0.6207,0.6207,1.0000,0.7660
+Architecture_4_Dilated,0.6207,0.6207,1.0000,0.7660
+Architecture_5_Multi_Kernel,0.6207,0.6207,1.0000,0.7660
