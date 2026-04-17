@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "C:\Users\VICTUS\Documents\GitHub\TSU\3.2\Complexity",
-      "program": "c:/Users/VICTUS/Documents/GitHub/TSU/3.2/Complexity/build/Debug/outDebug",
+      "cwd": "C:/Users/VICTUS/Documents/GitHub/TSU/3.2/Complexity",
+      "program": "c:/Users/VICTUS/Documents/GitHub/TSU/3.2/Complexity/program.exe",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
