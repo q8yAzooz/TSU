@@ -110,6 +110,125 @@ pair<int, int> backtrackKnapsack(const vector<Item>& items, int W, long long& du
     return make_pair(bestCost, bestWeight);
 }
 
+
+
+// ========== ФУНКЦИИ ДЛЯ ВЫВОДА ВЫБРАННЫХ ПРЕДМЕТОВ ==========
+
+void printGreedyItems(const vector<Item>& items, int W) {
+    vector<Item> sorted = items;
+    sort(sorted.begin(), sorted.end(), cmpGreedy);
+    
+    vector<bool> taken(items.size(), false);
+    int totalWeight = 0;
+    
+    for (size_t i = 0; i < sorted.size(); ++i) {
+        if (totalWeight + sorted[i].weight <= W) {
+            totalWeight += sorted[i].weight;
+            for (size_t j = 0; j < items.size(); ++j) {
+                if (items[j].weight == sorted[i].weight && 
+                    items[j].cost == sorted[i].cost && !taken[j]) {
+                    taken[j] = true;
+                    break;
+                }
+            }
+        }
+    }
+    
+    cout << "  Предметы: ";
+    bool first = true;
+    for (size_t i = 0; i < taken.size(); ++i) {
+        if (taken[i]) {
+            if (!first) cout << ", ";
+            cout << i;
+            first = false;
+        }
+    }
+    cout << endl;
+}
+
+void printDPItems(const vector<Item>& items, int W) {
+    int n = items.size();
+    vector<vector<int>> dp(n + 1, vector<int>(W + 1, 0));
+    
+    for (int i = 1; i <= n; ++i) {
+        for (int w = 0; w <= W; ++w) {
+            dp[i][w] = dp[i - 1][w];
+            if (items[i - 1].weight <= w) {
+                int take = dp[i - 1][w - items[i - 1].weight] + items[i - 1].cost;
+                if (take > dp[i][w]) dp[i][w] = take;
+            }
+        }
+    }
+    
+    vector<bool> taken(n, false);
+    int curW = W;
+    for (int i = n; i > 0; --i) {
+        if (dp[i][curW] != dp[i - 1][curW]) {
+            taken[i - 1] = true;
+            curW -= items[i - 1].weight;
+        }
+    }
+    
+    cout << "  Предметы: ";
+    bool first = true;
+    for (size_t i = 0; i < taken.size(); ++i) {
+        if (taken[i]) {
+            if (!first) cout << ", ";
+            cout << i;
+            first = false;
+        }
+    }
+    cout << endl;
+}
+
+vector<bool> btBestItems;
+vector<bool> btCurrentItems;
+int btBestCost = 0;
+int btBestWeight = 0;
+
+void backtrackWithSave(int idx, int curWeight, int curCost,
+    const vector<Item>& items, int W) {
+    if (idx == (int)items.size()) {
+        if (curCost > btBestCost) {
+            btBestCost = curCost;
+            btBestWeight = curWeight;
+            btBestItems = btCurrentItems;
+        }
+        return;
+    }
+    
+    if (curWeight + items[idx].weight <= W) {
+        btCurrentItems[idx] = true;
+        backtrackWithSave(idx + 1, curWeight + items[idx].weight, 
+                         curCost + items[idx].cost, items, W);
+        btCurrentItems[idx] = false;
+    }
+    backtrackWithSave(idx + 1, curWeight, curCost, items, W);
+}
+
+void printBacktrackItems(const vector<Item>& items, int W) {
+    btBestItems.assign(items.size(), false);
+    btCurrentItems.assign(items.size(), false);
+    btBestCost = 0;
+    btBestWeight = 0;
+    
+    backtrackWithSave(0, 0, 0, items, W);
+    
+    cout << "  Предметы: ";
+    bool first = true;
+    for (size_t i = 0; i < btBestItems.size(); ++i) {
+        if (btBestItems[i]) {
+            if (!first) cout << ", ";
+            cout << i;
+            first = false;
+        }
+    }
+    cout << endl;
+}
+
+
+
+
 int main() {
     SetConsoleOutputCP(CP_UTF8);
     srand((unsigned int)time(NULL));
@@ -149,5 +268,23 @@ int main() {
     printf("Бэктрекинг:                    стоимость = %4d, вес = %4d, время = %7d мкс\n", 
         btRes.first, btRes.second, (int)timeBacktrack);
     cout << "══════════════════════════════════════════════════════════════════════\n\n";
+
+    cout << "══════════════════════════════════════════════════════════════════════\n";
+    cout << "                          РЕЗУЛЬТАТЫ                                \n";
+    cout << "══════════════════════════════════════════════════════════════════════\n";
+
+    printf("Жадный алгоритм:               стоимость = %4d, вес = %4d, время = %7d мкс\n", 
+        greedyRes.first, greedyRes.second, (int)timeGreedy);
+    printGreedyItems(items, W);  // <-- ДОБАВИТЬ
+
+    printf("Динамическое программирование: стоимость = %4d, вес = %4d, время = %7d мкс\n", 
+        dpRes.first, dpRes.second, (int)timeDP);
+    printDPItems(items, W);      // <-- ДОБАВИТЬ
+
+    printf("Бэктрекинг:                    стоимость = %4d, вес = %4d, время = %7d мкс\n", 
+        btRes.first, btRes.second, (int)timeBacktrack);
+    printBacktrackItems(items, W); // <-- ДОБАВИТЬ
+
+cout << "══════════════════════════════════════════════════════════════════════\n\n";
     return 0;
 }
