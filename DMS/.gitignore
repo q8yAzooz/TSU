@@ -4,3 +4,4 @@ TechText.docx
 .venv
 DMS.py
 evaluate_dms.py
+/project/logs

@@ -3,13 +3,11 @@ import time
 from dataclasses import dataclass
 from enum import Enum
 from typing import List, Optional
-import numpy as np
 
 from core.face_detector import FaceDetectionResult
 
 
 class DrowsinessState(Enum):
-    """Состояние усталости водителя."""
     ALERT = "alert"
     WARNING = "warning"
     DROWSY = "drowsy"
@@ -17,7 +15,6 @@ class DrowsinessState(Enum):
 
 @dataclass
 class DrowsinessResult:
-    """Результат анализа усталости."""
     state: DrowsinessState
     perclos: float
     blink_count: int
@@ -28,13 +25,12 @@ class DrowsinessResult:
 
 
 class DrowsinessMonitor:
-    """Мониторинг усталости: PERCLOS, частота морганий."""
     
     def __init__(self, 
                  perclos_threshold: float = 0.15,
                  ear_threshold: float = 0.20,
                  low_blink_rate_threshold: float = 8.0,
-                 history_size: int = 30,
+                 history_size: int = 60,
                  ear_smooth_size: int = 5,
                  blink_cooldown_frames: int = 3):
         
@@ -49,20 +45,21 @@ class DrowsinessMonitor:
         self.blink_count = 0
         self.blink_cooldown = 0
         self.last_eye_state = True
+        self.last_update_time = time.time()
         
         self.start_time = time.time()
-        self.last_update_time = self.start_time
     
     def update(self, face_result: FaceDetectionResult) -> DrowsinessResult:
-        """Обновляет состояние на основе новых данных с лица."""
         now = time.time()
         
         if not face_result.success:
+            elapsed = now - self.start_time
+            blink_rate = self.blink_count / (elapsed / 60.0) if elapsed > 10 else 0.0
             return DrowsinessResult(
                 state=DrowsinessState.ALERT,
                 perclos=0.0,
                 blink_count=self.blink_count,
-                blink_rate=self._calculate_blink_rate(),
+                blink_rate=blink_rate,
                 avg_ear=0.0,
                 eyes_open=True,
                 warnings=[]
@@ -85,6 +82,11 @@ class DrowsinessMonitor:
         self.last_eye_state = eyes_open
         self.eye_history.append("CLOSED" if not eyes_open else "OPEN")
         
+        if not eyes_open and self.blink_cooldown == self.blink_cooldown_frames:
+            for _ in range(self.blink_cooldown_frames):
+                if len(self.eye_history) > 1:
+                    self.eye_history[-1] = "CLOSED"
+        
         perclos = self._calculate_perclos()
         blink_rate = self._calculate_blink_rate()
         
@@ -102,33 +104,30 @@ class DrowsinessMonitor:
         )
     
     def _calculate_perclos(self) -> float:
-        """Вычисляет процент времени с закрытыми глазами."""
-        if not self.eye_history:
+        if len(self.eye_history) < 10:
             return 0.0
         closed = sum(1 for s in self.eye_history if s == "CLOSED")
         return closed / len(self.eye_history)
     
     def _calculate_blink_rate(self) -> float:
-        """Вычисляет частоту морганий в минуту."""
         elapsed = time.time() - self.start_time
-        if elapsed < 1.0:
+        if elapsed < 10.0:
             return 0.0
         return self.blink_count / (elapsed / 60.0)
     
     def _evaluate_state(self, perclos: float, blink_rate: float, now: float) -> tuple:
-        """Оценивает состояние на основе метрик."""
         warnings = []
         state = DrowsinessState.ALERT
         
         elapsed = now - self.start_time
         
-        if perclos > self.perclos_threshold:
+        if elapsed > 30 and perclos > self.perclos_threshold:
             state = DrowsinessState.DROWSY
             warnings.append(f"DROWSY: PERCLOS {perclos:.1%}")
-        elif perclos > self.perclos_threshold * 0.7:
+        elif elapsed > 30 and perclos > self.perclos_threshold * 0.5:
             state = DrowsinessState.WARNING
         
-        if blink_rate < self.low_blink_rate_threshold and elapsed > 30:
+        if elapsed > 30 and blink_rate < self.low_blink_rate_threshold and self.blink_count > 0:
             if state == DrowsinessState.ALERT:
                 state = DrowsinessState.WARNING
             warnings.append(f"Low blink rate: {blink_rate:.1f}/min")
@@ -136,7 +135,6 @@ class DrowsinessMonitor:
         return state, warnings
     
     def reset(self) -> None:
-        """Сбрасывает накопленную историю и счетчики."""
         self.eye_history.clear()
         self.ear_history.clear()
         self.blink_count = 0
