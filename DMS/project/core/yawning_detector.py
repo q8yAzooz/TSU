@@ -97,3 +97,4 @@ class YawningDetector:
         self.yawn_count = 0
         self.yawn_timestamps.clear()
         self.last_mar = 0.0
+        
