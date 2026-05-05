@@ -282,12 +282,24 @@ NTHU-DDD/
 └── head_nodding/
 └── ...
 
+### Альтернативный датасет - UTA-RLDD
+
+**Характеристики:**
+
+* 60 участников, 180 видео (~30 часов) [citation:9]
+* Три состояния: Alert, Low Vigilant, Drowsy
+* Записи на мобильные телефоны и веб-камеры в реальных условиях
+
+**Скачивание:**
+
+* **Kaggle:** Удобный источник для [скачивания.](https://www.kaggle.com/datasets/minhngt02/uta-rldd)
+
 ### Использование датасета
 
 Для автоматизированной оценки на датасете используйте скрипт `evaluate_dms.py`:
 
 ```bash
-python evaluate_dms.py --dataset /path/to/NTHU-DDD --backend mediapipe --max-videos 10
+python evaluate_dms.py --dataset /path/to/dataset --backend mediapipe --max-videos 10
 ```
 
 Результаты сохраняются в `evaluation_mediapipe_YYYYMMDD_HHMMSS.json`.
